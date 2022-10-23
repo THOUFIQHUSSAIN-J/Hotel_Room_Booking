@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1{
+    font-size: 24px;
+    font-weight: 800;
+}
+
+h2{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.headerListItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.headerListItem.active{
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.HeaderIcon{
+    color: rgb(116, 110, 110);
+}
+
+.SearchItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.optionItem{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.counterBtn{
+    height: 30px;
+    width: 30px;
+    font-size: larger;
+    align-content: center;
+}
+
+
+/* feature */
+
+.featuredImg{
+    height: 300px;
+    width: 400px;
+    z-index: 1;
+}
+
+.featuredItem{
+    position: relative;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 250px;
+}
+
+.featuredTitles{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+/* Property list */
+.pListItem{
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    flex:1;
+}
+.pListImg{
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+    display: flex;
+}
+
+.pListTitles>h1{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pListTitles>h2{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Property Hotel */
+
+.fpItems{
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.fpImg{
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    display: flex;
+}
+
+.fpName{
+    font-weight: bold;
+}
+
+.fpCity{
+    font-weight: 300;
+}
+
+.fpPrice{
+    font-weight: 500;
+}
+
+.fpRating>button{
+    background-color: #003580;
+    color: white;
+    border: none;
+    padding: 3px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.fpRating>span{
+    font-size: 14px;
+}
+
+.lItem{
+    margin-bottom: 10px;
+    color: #003580;
+    cursor: pointer;
+    font-size: small;
+}
+
+/* //list (Hotel page) */
+.listOptionsItem{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: rgb(38, 38, 38);
+    font-size: 14px;
+}
+
+.optionInput{
+    width: 70px;
+}
+
