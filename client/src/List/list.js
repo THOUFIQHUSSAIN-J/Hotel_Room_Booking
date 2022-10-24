@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Navbar from '../components/navbar';
@@ -9,15 +9,27 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { SearchItem } from '../components/searchItem';
 import { MailList } from '../components/mailList';
 import { Footer } from '../components/footer';
+import useFetch from '../hooks/useFetch';
+import "./list.css"
 
  const List = () => {
+
+    
 
     const location = useLocation();
     const [destination, setDestination] = useState(location.state.dest)
     const [date, setDate] = useState(location.state.date)
     const [options, setOptions] = useState(location.state.options)
-
     const [openDate, setOpenDate] = useState(false);
+    const [min, setMin] = useState(undefined);
+    const [max, setMax] = useState(undefined);
+
+    const {data, loading, error, reFetch} = useFetch(`http://localhost:5000/api/hotels?city=${destination}&min=${min || 0 }&max=${max || 99999999}`)
+
+     const handleClick = () => {
+        reFetch();
+        };
+
 
     return(
         <div>
@@ -53,12 +65,18 @@ import { Footer } from '../components/footer';
                                 <div className='listOptionsItem'>
                                     <span className='lsOptionText'>Min Price <small>per night</small>
                                     </span>
-                                    <input type="number" className='optionInput'></input>
+                                    <input 
+                                    type="number" 
+                                    onChange={(e) => setMin(e.target.value)}
+                                    className='optionInput'></input>
                                 </div>
                                 <div className='listOptionsItem'>
                                     <span className='lsOptionText'>Max Price <small>per night</small>
                                     </span>
-                                    <input type="number" className='optionInput'></input>
+                                    <input 
+                                    type="number"
+                                    onChange={(e) => setMax(e.target.value)}
+                                    className='optionInput'></input>
                                 </div>
                                 <div className='listOptionsItem'>
                                     <span className='lsOptionText'>Adult 
@@ -77,18 +95,19 @@ import { Footer } from '../components/footer';
                                 </div>
                             </div>
                         </div>
-                        <button className='p-2 bg-blue-800 text-white rounded-lg w-full font-semibold'>Submit</button>
+                        <button onClick={handleClick} className='p-2 bg-blue-800 text-white rounded-lg w-full font-semibold'>Search</button>
                     </div>
                     
-                    <div className='listResult flex-[3]'>
-                        <SearchItem />
-                        <SearchItem />
-                        <SearchItem />
-                        <SearchItem />
-                        <SearchItem />
-                        <SearchItem />
-                        <SearchItem />
-                        <SearchItem />
+                    <div className="listResult">
+                        {loading ? (
+                            "loading"
+                             ) : (
+                            <Fragment>
+                                {data.map((item) => (
+                                <SearchItem item={item} key={item._id} />
+                                ))}
+                            </Fragment>
+                          )}
                     </div>
                 </div>
              </div>
