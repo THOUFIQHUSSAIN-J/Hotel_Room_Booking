@@ -1,41 +1,34 @@
+import { Fragment } from "react";
+import useFetch from "../hooks/useFetch";
+
+
 const Properties = () =>{
+
+    const {data, loading, error} = useFetch("http://localhost:5000/api/hotels/countByType")
+
+
+    const images =[
+        "/images/Properties/apartment.jpg",
+        "/images/Properties/boathouse.jpg",
+        "/images/Properties/cottage.jpg",
+        "/images/Properties/villa.jpg",
+        "/images/Properties/resort.jpg"
+        
+    ]
+
     return(
         <div className="pList w-full max-w-[1024px] flex justify-between gap-[20px] p-4">
-            <div className="pListItem">
-                <img src="/images/Properties/apartment.jpg" alt="prop1" className="pListImg"/>
-                <div className="pListTitles">
-                    <h1>Apartment</h1>
-                    <h2>123 Hotels</h2>
-                </div>
-            </div>
-             <div className="pListItem">
-                <img src="/images/Properties/boathouse.jpg" alt="prop2" className="pListImg"/>
-                <div className="pListTitles">
-                    <h1>Boat House</h1>
-                    <h2>123 Hotels</h2>
-                </div>
-            </div>
-             <div className="pListItem">
-                <img src="/images/Properties/cottage.jpg" alt="prop3" className="pListImg"/>
-                <div className="pListTitles">
-                    <h1>Cottage</h1>
-                    <h2>123 Hotels</h2>
-                </div>
-            </div>
-            <div className="pListItem">
-                <img src="/images/Properties/resort.jpg" alt="prop4" className="pListImg"/>
-                <div className="pListTitles">
-                    <h1>Resort</h1>
-                    <h2>123 Hotels</h2>
-                </div>
-            </div>
-            <div className="pListItem">
-                <img src="/images/Properties/villa.jpg" alt="prop5" className="pListImg"/>
-                <div className="pListTitles">
-                    <h1>Villa</h1>
-                    <h2>123 Hotels</h2>
-                </div>
-            </div>
+        {loading ? ("Loading Please wait") : (
+                <Fragment>
+                    {data && images.map((img, i) =>(<div className="pListItem" key={i}>
+                        <img src={img} alt="prop1" className="pListImg"/>
+                        <div className="pListTitles">
+                            <h1 className="capitalize">{data[i]?.type}</h1>
+                            <h2>{data[i]?.count} {data[i]?.type}</h2>
+                        </div>
+                    </div>))}
+                </Fragment>
+            )}
         </div>
     )
 
@@ -43,3 +36,7 @@ const Properties = () =>{
 
 
 export default Properties;
+
+
+
+
