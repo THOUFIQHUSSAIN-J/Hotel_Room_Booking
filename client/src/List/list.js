@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Navbar from '../components/navbar';
@@ -11,14 +11,15 @@ import { MailList } from '../components/mailList';
 import { Footer } from '../components/footer';
 import useFetch from '../hooks/useFetch';
 import "./list.css"
+import { SearchContext } from '../context/searchContext';
 
  const List = () => {
 
     
 
     const location = useLocation();
-    const [destination, setDestination] = useState(location.state.dest)
-    const [date, setDate] = useState(location.state.date)
+    const [destination, setDestination] = useState(location.state.destination)
+    const [dates, setDates] = useState(location.state.dates)
     const [options, setOptions] = useState(location.state.options)
     const [openDate, setOpenDate] = useState(false);
     const [min, setMin] = useState(undefined);
@@ -26,11 +27,14 @@ import "./list.css"
 
     const {data, loading, error, reFetch} = useFetch(`http://localhost:5000/api/hotels?city=${destination}&min=${min || 0 }&max=${max || 99999999}`)
 
+    const {dispatch} = useContext(SearchContext)
+
      const handleClick = () => {
+        dispatch({type:"NEW_SEARCH", payload:{destination, dates, options}}) 
         reFetch();
         };
 
-
+        console.log(dates);
     return(
         <div>
             <Navbar />
@@ -42,20 +46,20 @@ import "./list.css"
                         <h1 className='text-[20px] mb-2 text-neutral-800'>Search</h1>
                         <div className='listItem flex flex-col gap-[5px] mb-[10px]'>
                             <label className='text-sm'>Destination</label>
-                            <input type="text" placeholder='Destination' className='h-[40px] border-none p-[5px] rounded-lg'/>
+                            <input type="text" placeholder='Destination' className='h-[40px] border-none p-[5px] rounded-lg'onChange={(e) => setDestination(e.target.value)}/>
                         </div>
                         <div className='listItem flex flex-col gap-[5px] mb-[10px]'>
                             <label className='text-sm'>Check-in Date</label>
                             <span className='h-[40px] flex p-[5px] bg-white items-center cursor-pointer rounded-lg' onClick={()=> setOpenDate(!openDate)}>
-                                { `${format(date[0].startDate, "dd/MM/yyyy")} to ${format(date[0].endDate, "dd/MM/yyyy")} `}
+                                { `${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(dates[0].endDate, "dd/MM/yyyy")} `}
                             </span>
                             {openDate && 
                                 <DateRange 
                                 editableDateInputs = {true} 
-                                onChange = {item => setDate([item.selection])}
+                                onChange = {item => setDates([item.selection])}
                                 moveRangeOnFirstSelection = {false}
-                                ranges={date}
                                 minDate={new Date()}
+                                ranges={dates}
                                 className=""/>
                             }
                         </div>
