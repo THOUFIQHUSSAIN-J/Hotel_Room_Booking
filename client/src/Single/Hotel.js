@@ -6,15 +6,17 @@ import { MailList } from "../components/mailList";
 import Navbar from "../components/navbar";
 import useFetch from "../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SearchContext, SearchContextProvider } from "../context/searchContext";
 import { AuthContext } from "../context/AuthContext";
+import Reserve from "../components/reserve";
 
 
  const Hotel = () => {
 
     const location = useLocation();
     const id = location.pathname.split("/")[2];
+    const [openModal, setOpenModal] = useState(false)
 
     const {data, loading, error, reFetch} = useFetch(`http://localhost:5000/api/hotels/res/${id}`);
 
@@ -35,7 +37,7 @@ import { AuthContext } from "../context/AuthContext";
 
   const handleClick = () =>{
     if(user){
-
+        setOpenModal(true)
     }else{
         navigate("/login")
     }
@@ -96,6 +98,7 @@ import { AuthContext } from "../context/AuthContext";
                     </div>
                 </div>        
             </div>)}
+            {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
             <MailList />
             <Footer />
         </div>
