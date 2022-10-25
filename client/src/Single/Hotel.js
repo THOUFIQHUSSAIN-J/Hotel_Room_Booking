@@ -5,9 +5,10 @@ import Header from "../components/Header";
 import { MailList } from "../components/mailList";
 import Navbar from "../components/navbar";
 import useFetch from "../hooks/useFetch";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { SearchContext, SearchContextProvider } from "../context/searchContext";
+import { AuthContext } from "../context/AuthContext";
 
 
  const Hotel = () => {
@@ -17,18 +18,30 @@ import { SearchContext, SearchContextProvider } from "../context/searchContext";
 
     const {data, loading, error, reFetch} = useFetch(`http://localhost:5000/api/hotels/res/${id}`);
 
-    const {dates, options} = useContext(SearchContext)
-    console.log(dates)
-    console.log(options)
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
+    const {dates, options} = useContext(SearchContext)
+    
     const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
-   function dayDifference(date1, date2) {
+  function dayDifference(date1, date2) {
     const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return diffDays;
   }
 
-    const days = dayDifference(dates[0].endDate, dates[0].startDate); 
+  const days = dayDifference(dates[0].endDate, dates[0].startDate);
+
+
+  const handleClick = () =>{
+    if(user){
+
+    }else{
+        navigate("/login")
+    }
+  }
+
+    
 
     return(
         <div>
@@ -76,9 +89,9 @@ import { SearchContext, SearchContextProvider } from "../context/searchContext";
                                 Next to Alexander Square's park, this palatial hotel is 7.3 km from the Chennai International Airport, and 7.8 km from the Kapaleeswarar Temple.
                             </span>
                             <h2 className="font-light">
-                                <b>₹{days*data.cheapestPrice*options.room}</b> ({days}-nights)
+                                <b>₹{days * data.cheapestPrice * options.room}</b> ({days}-nights)
                             </h2>
-                            <button className='p-2 bg-blue-800 text-white rounded-lg w-full font-semibold'>Reseve/Book Now!</button>
+                            <button className='p-2 bg-blue-800 text-white rounded-lg w-full font-semibold' onClick={handleClick}>Reseve/Book Now!</button>
                         </div>
                     </div>
                 </div>        

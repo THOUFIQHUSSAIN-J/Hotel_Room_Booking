@@ -7,6 +7,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import {format} from "date-fns"
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../context/searchContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Header = ({type}) =>{
 
@@ -44,12 +45,17 @@ const Header = ({type}) =>{
 
     const [destination, setDestination] = useState("")
     const navigate = useNavigate()
+    const { user } = useContext(AuthContext);
 
     const {dispatch} = useContext(SearchContext)
 
     const handleSearch = ()=>{
         dispatch({type:"NEW_SEARCH", payload:{destination, dates, options}}) 
         navigate("/hotels", {state: {destination, dates, options}})
+    }
+
+    const handleClick = () =>{
+        navigate("/login")
     }
 
 
@@ -86,9 +92,9 @@ const Header = ({type}) =>{
                     <p>
                         Get rewarded for your travels - unlock instant savings of 10% or more with a free account.
                     </p>
-                    <button className="border-2 rounded-xl p-2 hover:bg-white hover:text-black">
+                    {!user && <button className="border-2 rounded-xl p-2 hover:bg-white hover:text-black" onClick={handleClick}>
                         Sign in / Register
-                    </button>
+                    </button>}
                     </div>
 
                     <div className="headerSearch h-[30px] bg-white border-[3px] border-yellow-400 flex  items-center justify-around px-[10px] py-6 rounded-lg relative bottom-[-40px] w-full max-w-[1024px] text-slate-400">

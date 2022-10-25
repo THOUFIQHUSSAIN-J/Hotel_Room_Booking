@@ -27,14 +27,10 @@ import { SearchContext } from '../context/searchContext';
 
     const {data, loading, error, reFetch} = useFetch(`http://localhost:5000/api/hotels?city=${destination}&min=${min || 0 }&max=${max || 99999999}`)
 
-    const {dispatch} = useContext(SearchContext)
 
      const handleClick = () => {
-        dispatch({type:"NEW_SEARCH", payload:{destination, dates, options}}) 
         reFetch();
         };
-
-        console.log(dates);
     return(
         <div>
             <Navbar />
