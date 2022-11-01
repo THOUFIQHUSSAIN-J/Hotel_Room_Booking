@@ -9,7 +9,7 @@ export const SearchItem = ({item}) => {
             <h1 className="hTitle text-blue-900">{item.name}</h1>
             <span className="hDistance text-[12px]">{item.distance}m from Central</span>
             <span className="hTaxi text-[12px]  bg-green-700 w-max text-white p-1 rounded-sm">Free airport taxi</span>
-            <span className="hSubtitle text-[14px] font-extrabold">{item.desc}</span>
+            <span className="hSubtitle text-[14px] font-extrabold">{item.title}</span>
             <span className="hFeatures text-[14px]">All in one</span>
             <span className="hCancellation text-[14px] text-green-700 font-bold">Free cancellation</span>
         </div>

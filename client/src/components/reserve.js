@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
 import "./reserve.css";
 import { useContext, useState } from "react";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";

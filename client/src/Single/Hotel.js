@@ -60,7 +60,7 @@ import Reserve from "../components/reserve";
                         <span> {data.address}</span>
                     </div>
 
-                    <span className="text-blue-900 font-medium">Excellent Location {data.distance} from Central Railway Station</span>
+                    <span className="text-blue-900 font-medium">Excellent Location {data.distance}</span>
                     <span>Book a luxurious experience at the cheapest price starting from ₹{data.cheapestPrice}!</span>
                     <div className="hotelImages flex flex-wrap justify-between">
                         {data.photos?.map(photo=>(
