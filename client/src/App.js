@@ -1,5 +1,6 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Redirect } from "./components/redirect";
 import List from "./List/list";
 import Login from "./Login/Login";
 import Home from "./Pages/Home";
@@ -15,6 +16,7 @@ function App() {
         <Route path="/hotels" element={<List/>}/>
         <Route path="/hotels/:id" element={<Hotel/>}/>
         <Route path="/login" element={<Login />}/>
+        <Route path="/redirect" element={<Redirect />}/>
       </Routes>
     </BrowserRouter>
   );
