@@ -24,7 +24,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       navigate("/")
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
@@ -35,7 +35,12 @@ const Login = () => {
 
 
     return (
-        <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+        <div className="background relative flex flex-col justify-center min-h-screen overflow-hidden">
+            <div className="cube"></div>
+            <div className="cube"></div>
+            <div className="cube"></div>
+            <div className="cube"></div>
+            <div className="cube"></div>
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-purple-700 uppercase">
                     Sign in
@@ -70,7 +75,7 @@ const Login = () => {
                         />
                     </div>
               
-                    <div className="mt-6">
+                    <div className="button mt-6">
                         <button 
                           disabled={loading} onClick={handleClick}
                           className="lButton w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
